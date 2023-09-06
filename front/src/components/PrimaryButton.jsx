@@ -1,8 +1,15 @@
 import { Pressable, StyleSheet, Text } from "react-native";
 
-export default function PrimaryButton({ text, onPress }) {
+export default function PrimaryButton({ text, onPress, disable = false }) {
+  const getBackgroundColor = () => {
+    return disable ? "grey" : "#2AF";
+  };
+
   return (
-    <Pressable onPress={onPress} style={styles.button}>
+    <Pressable
+      onPress={disable ? () => {} : onPress}
+      style={{ ...styles.button, backgroundColor: getBackgroundColor() }}
+    >
       <Text style={styles.text}>{text}</Text>
     </Pressable>
   );
@@ -10,12 +17,12 @@ export default function PrimaryButton({ text, onPress }) {
 
 const styles = StyleSheet.create({
   button: {
-		borderWidth: 1,
-		borderColor: "black",
-    backgroundColor: "grey",
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-		borderRadius: 5
+    paddingHorizontal: 15,
+    paddingVertical: 8,
+    borderRadius: 5,
+    minWidth: 100,
+    justifyContent: "center",
+    alignItems: "center",
   },
   text: {
     color: "white",

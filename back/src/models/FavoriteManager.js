@@ -55,6 +55,16 @@ class FavoriteManager extends AbstractManager {
 
     return 0;
   }
+
+  async deleteByArticleIdAndUserId(articleId, userId) {
+    // Execute the SQL DELETE query to remove an article from the "article" table
+    await this.database.query(
+      `delete from ${this.table} where article_id = ? && user_id = ?`,
+      [articleId, userId]
+    );
+
+    return 0;
+  }
 }
 
 module.exports = FavoriteManager;

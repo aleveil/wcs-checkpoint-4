@@ -57,11 +57,11 @@ class ArticleManager extends AbstractManager {
     return 0;
   }
 
-  async readAllFavoriteByUserId(id) {
+  async readAllArticlesByUserIdFavorite(id) {
     // Execute the SQL SELECT query to retrieve all articles from the "article" table
     const [rows] = await this.database.query(
-      `SELECT ${this.table}.* FROM ${this.table} JOIN favorite on favorite.article_id = ${this.table}.id WHERE favorite.user_id = ?`,
-      [id]
+      `SELECT ${this.table}.*, IF(favorite.user_id = ?, true, false) AS is_favorite FROM ${this.table} LEFT JOIN favorite ON favorite.article_id = ${this.table}.id && favorite.user_id = ?`,
+      [id, id]
     );
 
     // Return the array of articles

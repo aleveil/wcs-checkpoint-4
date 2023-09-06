@@ -71,11 +71,11 @@ const destroy = async (req, res, next) => {
   }
 };
 
-const readAllFavoriteByUserId = async (req, res, next) => {
+const readAllArticlesByUserIdFavorite = async (req, res, next) => {
   const { id } = req.params;
 
   try {
-    const articles = await tables.article.readAllFavoriteByUserId(id);
+    const articles = await tables.article.readAllArticlesByUserIdFavorite(id);
 
     res.json(articles);
   } catch (err) {
@@ -90,5 +90,5 @@ module.exports = {
   // edit,
   add,
   destroy,
-  readAllFavoriteByUserId,
+  readAllArticlesByUserIdFavorite,
 };
