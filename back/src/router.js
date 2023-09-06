@@ -38,7 +38,10 @@ router.post("/articles", articleControllers.add);
 // Route to delete an article by ID
 router.delete("/articles/:id", articleControllers.destroy);
 
-router.get("/favarticles/:id", articleControllers.readAllFavoriteByUserId);
+router.get(
+  "/favarticles/:id",
+  articleControllers.readAllArticlesByUserIdFavorite
+);
 
 /* ************************************************************************* */
 
@@ -56,6 +59,11 @@ router.post("/favorites", favoriteControllers.add);
 
 // Route to delete an favorite by ID
 router.delete("/favorites/:id", favoriteControllers.destroy);
+
+router.delete(
+  "/favorites/:articleId/:userId",
+  favoriteControllers.deleteByArticleIdAndUserId
+);
 
 /* ************************************************************************* */
 const authControllers = require("./controllers/authControllers");

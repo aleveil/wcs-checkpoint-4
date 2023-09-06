@@ -18,14 +18,17 @@ export default function Login() {
     axios
       .post("http://192.168.1.17:3310/api/login", loginForm)
       .then((res) => {
-        console.log(res);
         setUser(res.data);
+        Toast.show({
+          type: "success",
+          text1: "Connexion réussie",
+        });
       })
       .catch((err) => {
         console.error(err);
         Toast.show({
           type: "error",
-          text1: "Connexion échouée",
+          text1: "Une erreur est survenue",
           text2: "Veuillez réessayer.",
         });
       });
@@ -33,6 +36,7 @@ export default function Login() {
 
   return (
     <View style={styles.container}>
+      <Text style={{ fontSize: 40, fontWeight: "bold", marginBottom: 70 }}>Bonjour !</Text>
       <Text>Email</Text>
       <TextInput
         editable
@@ -51,7 +55,7 @@ export default function Login() {
         secureTextEntry={true}
         style={styles.input}
       />
-      <PrimaryButton text="Se Connecter" onPress={onSubmit} />
+      <PrimaryButton text="Se Connecter" onPress={onSubmit} disable={!loginForm.email || !loginForm.password}/>
     </View>
   );
 }

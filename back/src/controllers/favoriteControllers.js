@@ -70,6 +70,21 @@ const destroy = async (req, res, next) => {
   }
 };
 
+const deleteByArticleIdAndUserId = async (req, res, next) => {
+  // Extract the favorite data from the request body
+  const { articleId, userId } = req.params;
+  try {
+    // Delete the favorite from the database
+    await tables.favorite.deleteByArticleIdAndUserId(articleId, userId);
+
+    // Respond with HTTP 200 (OK)
+    res.sendStatus(200);
+  } catch (err) {
+    // Pass any errors to the error-handling middleware
+    next(err);
+  }
+};
+
 // Ready to export the controller functions
 module.exports = {
   browse,
@@ -77,4 +92,5 @@ module.exports = {
   // edit,
   add,
   destroy,
+  deleteByArticleIdAndUserId,
 };
